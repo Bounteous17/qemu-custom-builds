@@ -75,7 +75,9 @@ Here it will be calculated as **8192 * 512 = 4194304**
     $ qemu-system-aarch64 -machine virt -cpu cortex-a72 -smp 6 -m 4G \
         -kernel Image -append "root=/dev/vda2 rootfstype=ext4 rw panic=0 console=ttyAMA0" \
         -drive format=raw,file=2023-05-03-raspios-bullseye-arm64.img,if=none,id=hd0,cache=writeback \
+        -drive format=raw,file=/home-non-crypt/qemu-disk/raspi-cluster-0.img,if=none,id=hd1,cache=writeback \
         -device virtio-blk,drive=hd0,bootindex=0 \
+        -device virtio-blk,drive=hd1,bootindex=1 \
         -netdev user,id=mynet,hostfwd=tcp::2222-:22 \
         -device virtio-net-pci,netdev=mynet \
         -monitor telnet:127.0.0.1:5555,server,nowait
